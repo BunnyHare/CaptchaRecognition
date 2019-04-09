@@ -3,22 +3,6 @@ import urllib.request
 import re
 import os
 
-'''def main():
-    img_url='https://pay.xidian.edu.cn/'
-
-    headers={
-        'Accept': 'text/html, application/xhtml+xml, image/jxr, */*',
-        'Accept-Encoding' :'gzip, deflate',
-        'Accept-Language': 'zh-CN',
-        'Connection': 'Keep-Alive',
-        'Host': 'pay.xidian.edu.cn',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393'
-    }
-
-    for i in range(10):
-        print('正在下载第', i+1, '张图片')
-    '''
-
 def getHtml(url):
     page=urllib.request.urlopen(url)
     html=page.read()
@@ -55,7 +39,8 @@ if __name__=='__main__':
 
     # '''饭否'''
     path = make_dir('CaptchaImg_fanfou')
-    for i in range(100):
+    download_count=1000
+    for i in range(download_count):
         filename = path + '\\' + str(i + 1) + '.jpg'
-        print('正在下载第' + str(i + 1) + '张图片')
+        print('正在下载第' + str(i + 1) + '张图片..')
         urllib.request.urlretrieve('http://captcha.fanfou.com/captcha.png', filename)
