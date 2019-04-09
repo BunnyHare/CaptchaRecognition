@@ -1,4 +1,5 @@
 from PIL import Image
+from GetCaptchaImages import make_dir
 import os
 
 def grayScale(image):
@@ -6,10 +7,14 @@ def grayScale(image):
     return image
 
 if __name__=='__main__':
-    path=os.getcwd()+r'\CaptchaImg_xidian'
+    path = os.getcwd()+r'\TrainSet_fanfou'
+    save_folder=path+r'\GrayScale'
+    if not os.path.isdir(save_folder):
+        os.makedirs(save_folder)
     for fullname in os.listdir(path):
-        print('正在将' + fullname + '灰度化..')
-        (filename,extension)=os.path.splitext(path +'\\' + fullname)
-        captcha_img=Image.open(path +'\\' + fullname)
-        captcha_img=grayScale(captcha_img)
-        captcha_img.save(filename+'_grayscale'+extension)
+        if fullname.find('.jpg')>=0:
+            print('正在将' + fullname + '灰度化..')
+            captcha_img=Image.open(path +'\\' + fullname)
+            captcha_img=grayScale(captcha_img)
+            new_name=fullname.replace('.jpg','_grayscale.jpg')
+            captcha_img.save(save_folder+'\\'+new_name)

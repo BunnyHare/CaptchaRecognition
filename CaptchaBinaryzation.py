@@ -15,11 +15,15 @@ def binaryzation(image):
     return  image
 
 if __name__=='__main__':
-    path=os.getcwd()+r'\CaptchaImg_xidian'
-    for filename in os.listdir(path):
+    path=os.getcwd()+r'\TrainSet_fanfou'
+    task_path=path+r'\GrayScale'
+    save_folder = path+r'\Binaryzation'
+    if not os.path.isdir(save_folder):
+        os.makedirs(save_folder)
+    for filename in os.listdir(task_path):
         if filename.find('_grayscale')>=0:
-            image=Image.open(path+'\\'+filename)
+            image=Image.open(task_path+'\\'+filename)
             print('正在将'+filename+'二值化..')
             image=binaryzation(image)
             bin_filename=filename.replace('_grayscale.jpg','_binary.bmp')
-            image.save(path+'\\'+bin_filename)
+            image.save(save_folder+'\\'+bin_filename)

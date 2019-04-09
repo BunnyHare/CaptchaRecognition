@@ -55,14 +55,20 @@ def noise_reduction(image,threshold):
     return image
 
 if __name__=='__main__':
-    path=os.getcwd()+r'\CaptchaTest2'
+    path=os.getcwd()+r'\TrainSet_fanfou'
+    task_path = path + r'\Binaryzation'
+    save_folder = path + r'\NoiseReduction'
+    if not os.path.isdir(save_folder):
+        os.makedirs(save_folder)
+
     noise_reduction_threshold=3     #阈值，周围8个像素黑点数<=阈值认为是噪声
     noise_reduction_again_threshold=2   #再次去噪的阈值，每列每行少于阈值的认为是噪声
-    for filename in os.listdir(path):
+
+    for filename in os.listdir(task_path):
         if filename.find('_binary')>=0:
-            image=Image.open(path+'\\'+filename)
+            image=Image.open(task_path+'\\'+filename)
             print('正在对'+filename+'去噪声..')
             image=noise_reduction(image,noise_reduction_threshold)
             image=noise_reduction(image,noise_reduction_threshold)  #两次去噪声，能去除残留的噪点
-            new_name=filename.replace('_binary','_noisereduction')
-            image.save(path+'\\'+new_name)
+            new_name=filename.replace('_binary.bmp','_noisereduction.bmp')
+            image.save(save_folder+'\\'+new_name)

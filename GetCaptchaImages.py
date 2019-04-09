@@ -38,8 +38,8 @@ if __name__=='__main__':
     #     save_img(url,path,imglist,filename)
 
     # '''饭否'''
-    path = make_dir('CaptchaImg_fanfou')
-    download_count=1000
+    path = make_dir('TrainSet_fanfou')
+    download_count=100
     for i in range(download_count):
         filename = path + '\\' + str(i + 1) + '.jpg'
         print('正在下载第' + str(i + 1) + '张图片..')

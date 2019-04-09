@@ -74,15 +74,19 @@ def segmentation(image,resize_width,resize_height):
     return image_list
 
 if __name__=='__main__':
-    path=os.getcwd()+r'\CaptchaImg_fanfou'
+    path=os.getcwd()+r'\TrainSet_fanfou'
+    task_path = path + r'\NoiseReduction'
+    save_folder = path + r'\Segmentation'
+    if not os.path.isdir(save_folder):
+        os.makedirs(save_folder)
     image_list=[]
     resize_width=15
     resize_height=20
-    for filename in os.listdir(path):
+    for filename in os.listdir(task_path):
         if filename.find('_noisereduction')>=0:
-            image=Image.open(path+'\\'+filename)
+            image=Image.open(task_path+'\\'+filename)
             print('正在分割'+filename+'..')
             image_list=segmentation(image,resize_width,resize_height)
             for num in range(len(image_list)):
                 sub_image_name=filename.replace('_noisereduction.bmp','_segmentation_' + str(num)+'.bmp')
-                image_list[num].save(path+'\\'+sub_image_name)
+                image_list[num].save(save_folder+'\\'+sub_image_name)
