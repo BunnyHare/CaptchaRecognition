@@ -16,11 +16,11 @@ kernel_size = (3, 3)  # 卷积核的大小
 input_shape = (img_rows, img_cols, 1)  # 输入图片的维度
 
 
-def read_data():
-    x = pd.read_csv('dataset_csv/train_x.csv').values
+def read_data(path_x,path_y):
+    x = pd.read_csv(path_x).values
     scale = MinMaxScaler()
     x = scale.fit_transform(x)
-    y = pd.read_csv('dataset_csv/train_y.csv').values
+    y = pd.read_csv(path_y).values
     x = x.reshape(img_count, img_rows, img_cols, 1)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)
     return x_train, x_test, y_train, y_test
@@ -28,15 +28,17 @@ def read_data():
 
 def get_model():
     model = Sequential()
-    model.add(Conv2D(6, kernel_size, input_shape=input_shape, strides=1))  # 卷积层1
+    model.add(Conv2D(6, kernel_size, input_shape=input_shape, strides=1))  # 卷积层
     model.add(Flatten())  # 拉成一维数据
-    model.add(Dense(nb_classes))  # 全连接层2
+    model.add(Dense(nb_classes))  # 全连接层
     model.add(Activation('softmax'))
     return model
 
 
 if __name__ == '__main__':
-    x_train, x_test, y_train, y_test = read_data()
+    path_x='dataset_csv/train_x.csv'
+    path_y='dataset_csv/train_y.csv'
+    x_train, x_test, y_train, y_test = read_data(path_x,path_y)
     model = get_model()
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     # 训练模型
