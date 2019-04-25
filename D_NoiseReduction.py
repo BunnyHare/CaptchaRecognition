@@ -70,7 +70,7 @@ if __name__ == '__main__':
         os.makedirs(save_folder)
 
     noise_reduction_threshold = 3  # 阈值，周围8个像素黑点数<=阈值认为是噪声
-    noise_reduction_again_threshold = 2  # 再次去噪的阈值，每列每行少于阈值的认为是噪声
+    # noise_reduction_again_threshold = 2  # 再次去噪的阈值，每列每行少于阈值的认为是噪声
 
     for filename in os.listdir(task_path):
         if filename.find('_binary') >= 0:

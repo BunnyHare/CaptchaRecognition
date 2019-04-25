@@ -1,5 +1,4 @@
 from PIL import Image
-from A_GetCaptchaImages import make_dir
 import os
 
 
