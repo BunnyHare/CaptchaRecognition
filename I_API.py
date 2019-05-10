@@ -9,6 +9,8 @@ import urllib.request
 import sys
 from PIL import Image
 from time import time
+import os
+import numpy as np
 
 
 def get_captcha_images(download_count):
@@ -64,24 +66,43 @@ def recognize_single_character(image, width, height):
 
 
 def recognize_image(image_path):
+
     image = Image.open(image_path)
     threshold = 3
     width, height = 15, 20
     image = pretreatment(image, threshold)
     image_list = captcha_segmentation(image, width, height)
-    result = []
-    for sub_image in image_list:
-        result.append(recognize_single_character(sub_image, width, height))
+    # for i in image_list:
+    #     i.show()
+    result_arr = []
+    for i in range(len(image_list)):
+        result_arr.append(recognize_single_character(image_list[i], width, height))
+    # for sub_image in image_list:
 
-    for i in result:
-        print(i, end='')
+        # result_arr.append(recognize_single_character(sub_image, width, height))
+    result = ''.join(result_arr)
+    print('recognize result:'+result)
+    return result
 
 
 if __name__ == '__main__':
     start = time()
-    path = '14.jpg'
-    recognize_image(path)
+    path = os.getcwd() + r'\My_captcha'
+    image_count = 0
+    correct_count = 0
+    for filename in os.listdir(path):
+        result = recognize_image(path + '\\' + filename)
+        image_count += 1
+        answer=filename.split('.')[0].split('_')[0]
+        print('answer:'+answer)
+        if result == answer:
+            correct_count += 1
+    print('图片总数：' + str(image_count))
+    print('识别正确数：' + str(correct_count))
+    print('正确率：' + str(correct_count / image_count))
+    # path = 'code.jpg'
+    # recognize_image(path)
     print('')
     end = time()
     t = end - start
-    print('程序执行时间：'+str(t))
+    print('程序执行时间：' + str(t))

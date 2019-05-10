@@ -3,27 +3,31 @@ import urllib.request
 import re
 import os
 
+
 def getHtml(url):
-    page=urllib.request.urlopen(url)
-    html=page.read()
-    html=html.decode('utf-8')
+    page = urllib.request.urlopen(url)
+    html = page.read()
+    html = html.decode('utf-8')
     return html
 
-def getImg(html):   # 爬不同网页要修改这里的str
-    str = '<img id="loginform-verifycode-image" src="(.*)" alt' # 西电信息化建设处
-    imgre=re.compile(str)
-    imglist=imgre.findall(html)
+
+def getImg(html):  # 爬不同网页要修改这里的str
+    str = '<img id="loginform-verifycode-image" src="(.*)" alt'  # 西电信息化建设处
+    imgre = re.compile(str)
+    imglist = imgre.findall(html)
     return imglist
 
+
 def make_dir(folder):
-    path=os.getcwd()+'\\'+folder
+    path = os.getcwd() + '\\' + folder
     if not os.path.isdir(path):
         os.makedirs(path)
     return path
 
-def save_img(url,path,imglist,filename):
-    img_url=url+imglist[0]
-    img=urllib.request.urlretrieve(img_url,filename)
+
+def save_img(url, path, imglist, filename):
+    img_url = url + imglist[0]
+    img = urllib.request.urlretrieve(img_url, filename)
 
 
 if __name__ == '__main__':
@@ -39,7 +43,7 @@ if __name__ == '__main__':
 
     # '''饭否'''
     path = make_dir('TrainSet_fanfou')
-    download_count=100
+    download_count = 100
     for i in range(download_count):
         filename = path + '\\' + str(i + 1) + '.jpg'
         print('正在下载第' + str(i + 1) + '张图片..')

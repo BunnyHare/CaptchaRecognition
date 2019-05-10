@@ -17,7 +17,7 @@ def binaryzation(image):
 
 
 if __name__ == '__main__':
-    path = os.getcwd() + r'\TrainSet_fanfou'
+    path = os.getcwd() + r'\My_captcha3'
     task_path = path + r'\GrayScale'
     save_folder = path + r'\Binaryzation'
     if not os.path.isdir(save_folder):

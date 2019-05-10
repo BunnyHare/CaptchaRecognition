@@ -31,14 +31,17 @@ def get_data(path):
             image = Image.open(os.path.join(root, filename))
             label = root.split('\\')[-1]
             single_image_array_x = image_to_matrix(image)
+            if single_image_array_x.shape[0] == 3:
+                print(filename)
             all_image_array_x.append(single_image_array_x)
             single_image_array_y = np.zeros(36)
             single_image_array_y[character_to_num(label)] = 1
-            # print(single_image_array_y)
             all_image_array_y.append(single_image_array_y)
-    result_x = np.array(all_image_array_x)
-    result_x = result_x.reshape(result_x.shape[0] * result_x.shape[1], result_x.shape[2])
-    print(result_x)
+    result_x = all_image_array_x[0]
+    for i in range(len(all_image_array_x)-1):
+        result_x = np.concatenate((result_x, all_image_array_x[i + 1]))
+    # print(result_x.shape)
+    # result_x = result_x.reshape(result_x.shape[0] * result_x.shape[1], result_x.shape[2])
     result_y = np.array(all_image_array_y)
     # print(result_y)
 
@@ -59,5 +62,5 @@ def get_data(path):
 
 
 if __name__ == '__main__':
-    path = os.getcwd() + r'\TrainSet'
+    path = os.getcwd() + r'\My_captcha2'
     get_data(path)

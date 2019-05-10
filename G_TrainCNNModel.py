@@ -8,7 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 batch_size = 128  # 批处理样本数量
 nb_classes = 36  # 分类数目
 epochs = 600  # 迭代次数
-img_count = 1020  # 图片数量
+img_count = 4067  # 图片数量
 img_rows, img_cols = 15, 20  # 输入图片样本的宽高
 nb_filters = 32  # 卷积核的个数
 pool_size = (2, 2)  # 池化层的大小

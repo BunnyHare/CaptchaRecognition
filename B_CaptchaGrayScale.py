@@ -8,7 +8,7 @@ def grayScale(image):
 
 
 if __name__ == '__main__':
-    path = os.getcwd() + r'\TrainSet_fanfou'
+    path = os.getcwd() + r'\My_captcha3'
     save_folder = path + r'\GrayScale'
     if not os.path.isdir(save_folder):
         os.makedirs(save_folder)

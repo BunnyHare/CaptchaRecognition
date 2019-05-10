@@ -4,6 +4,7 @@ from G_TrainCNNModel import read_data
 from F_ImageToCsv import image_to_matrix
 from PIL import Image
 from sklearn.preprocessing import MinMaxScaler
+from time import time
 
 
 def num_to_character(num):
@@ -15,18 +16,23 @@ def num_to_character(num):
 
 # 识别一张图片
 def recognize_image(image, width, height):
+
     model = model_from_json(open('CNN_model/my_model_architecture.json').read())
     model.load_weights('CNN_model/my_model_weights.h5')
+
+
     image_matrix = image_to_matrix(image)
     scale = MinMaxScaler()
     image_matrix = scale.fit_transform(image_matrix)
     image_matrix = image_matrix.reshape(1, width, height, 1)
+    start = time()
+    predict_matrix = model.predict(image_matrix)
+    end = time()
+    t = end - start
+    print('time：' + str(t))
+    predict_result = np.array(predict_matrix).argmax()
+    result = num_to_character(predict_result)
 
-    predict_val = model.predict(image_matrix)
-    predict_array = []
-    for i in predict_val:
-        predict_array.append(np.array(i).argmax())
-    result = num_to_character(predict_array[0])
     return result
 
 
@@ -36,7 +42,9 @@ if __name__ == '__main__':
     model = model_from_json(open('CNN_model/my_model_architecture.json').read())
     model.load_weights('CNN_model/my_model_weights.h5')
     # print(model.summary())
-    test_image_path = '1_segmentation_0.bmp'
+
+    # 测试一张15*20的图片是否能识别
+    test_image_path = '3_ifo5aWmESz.jpg'
     test_image = Image.open(test_image_path)
     img_rows, img_cols = test_image.size[0], test_image.size[1]
     test_image_result = recognize_image(test_image, img_rows, img_cols)

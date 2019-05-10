@@ -78,7 +78,7 @@ def segmentation(image, resize_width, resize_height):
 
 
 if __name__ == '__main__':
-    path = os.getcwd() + r'\TrainSet_fanfou'
+    path = os.getcwd() + r'\My_captcha'
     task_path = path + r'\NoiseReduction'
     save_folder = path + r'\Segmentation'
     if not os.path.isdir(save_folder):
